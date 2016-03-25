@@ -1,10 +1,10 @@
-import cursorReducer from './cursorReducer'
 import localReducer from './localReducer'
 import rootCursor from './rootCursor'
+import rootReducer from './rootReducer'
 
 export const makeLocalReducer = localReducer
 export const makeRootCursor = rootCursor
-export const makeRootReducer = cursorReducer
+export const makeRootReducer = rootReducer
 
 import { Action, Cursor, CursorAction, LocalStateReducer } from './types'
 export type Action = Action
