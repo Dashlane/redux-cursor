@@ -29,7 +29,7 @@ export default function makeLocalReducer<State extends Object, GlobalState exten
         }
       }
     },
-    apply: function <Param>(state: { _: State } = { _: initialState }, action: CursorAction<Param>, globalState: GlobalState) {
+    apply: function <Param>(state: { _: State, [k: string]: any } = { _: initialState }, action: CursorAction<Param>, globalState: GlobalState) {
       const [childKey, finalAction] = splitAction(action)
       if (childKey) {
         const correctChildren = children.filter(c => c.key === childKey || c.key === childKey.split('$')[1])

@@ -2,8 +2,7 @@
     "compilerOptions": {
         "moduleResolution": "node",
         "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "suppressImplicitAnyIndexErrors": true
+        "noImplicitReturns": true
     },
     "exclude": [
         "dist",

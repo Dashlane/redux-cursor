@@ -26,7 +26,7 @@ export interface CursorActionCreator<Param> {
 }
 
 export interface HasCursorState {
-  cursor: {}
+  cursor: { [k: string]: any }
 }
 
 export interface LocalReducer<State extends Object, GlobalState extends Object> {

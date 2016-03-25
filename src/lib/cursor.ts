@@ -7,9 +7,9 @@ function encodeInstanceKey(key: string) {
   return key.replace('%', '%P').replace('$', '%D').replace('/', '%S')
 }
 
-function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalReducer<S, GlobalState>, currentState: { _?: S } = {}, globalState: GlobalState, dispatch: (action: Action) => void): Cursor<S, GlobalState> {
+function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalReducer<S, GlobalState>, currentState: { _?: S, [k: string]: any } = {}, globalState: GlobalState, dispatch: (action: Action) => void): Cursor<S, GlobalState> {
   const globalDispatch = function(action: Action) {
-    if (action['cursor-action'])
+    if ('cursor-action' in action)
       throw new Error('A cursor action given to global dispatch')
     dispatch(action)
   }
@@ -32,6 +32,6 @@ function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalRed
   }
 }
 
-export default function makeRootCursor<State extends {}, GlobalState extends { cursor: {} }>(store: Redux.IStore<GlobalState>, rootReducer: LocalReducer<State, GlobalState>): Cursor<State, GlobalState> {
+export default function makeRootCursor<State extends {}, GlobalState extends { cursor: { [k: string]: any } }>(store: Redux.IStore<GlobalState>, rootReducer: LocalReducer<State, GlobalState>): Cursor<State, GlobalState> {
   return makeCursorInternal('@cursor/', rootReducer, store.getState().cursor[rootReducer.key], store.getState(), store.dispatch)
 }
