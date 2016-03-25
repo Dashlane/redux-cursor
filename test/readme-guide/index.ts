@@ -43,3 +43,28 @@ test('private reducer reacts to actions with parameters', t => {
     const updatedCursor = makeRootCursor(store, appReducer)
     t.same(updatedCursor.state.foo, 'new')
 })
+
+test('child reducer should have its own state', t => {
+    const childReducer = makeLocalReducer('child', { foo: 'bar' })
+    const childChange = childReducer.action('change', ({ param }) => ({ foo: param }))
+    const appReducer = makeLocalReducer('my-app', { foo: 'baz' }, [childReducer])
+    const appChange = appReducer.action('change', ({ param }) => ({ foo: param }))
+    const store = Redux.createStore(makeRootReducer(appReducer))
+    const cursor1 = makeRootCursor(store, appReducer)
+    cursor1.child(childReducer).dispatch(childChange('quux'))
+    cursor1.dispatch(appChange('new'))
+    const cursor2 = makeRootCursor(store, appReducer)
+    t.same(cursor2.child(childReducer).state.foo, 'quux')
+})
+
+test('children reducers should be distinguished by keys', t => {
+    const childReducer = makeLocalReducer('child', { foo: 'bar' })
+    const childChange = childReducer.action('change', ({ param }) => ({ foo: param }))
+    const appReducer = makeLocalReducer('my-app', {}, [childReducer])
+    const store = Redux.createStore(makeRootReducer(appReducer))
+    const cursor1 = makeRootCursor(store, appReducer)
+    cursor1.child(childReducer, 'key1').dispatch(childChange('quux'))
+    const cursor2 = makeRootCursor(store, appReducer)
+    t.same(cursor2.child(childReducer, 'key1').state.foo, 'quux')
+    t.same(cursor2.child(childReducer, 'key2').state.foo, 'bar')
+})
