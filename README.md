@@ -1,5 +1,6 @@
 # Redux cursor
 
+[![npm](https://img.shields.io/npm/v/redux-cursor.svg)](https://www.npmjs.com/package/redux-cursor)
 [![Build Status](https://travis-ci.org/Dashlane/redux-cursor.svg?branch=master)](https://travis-ci.org/Dashlane/redux-cursor)
 [![Dependency Status](https://gemnasium.com/Dashlane/redux-cursor.svg)](https://gemnasium.com/Dashlane/redux-cursor)
 
