@@ -12,15 +12,17 @@ export default function <GlobalState extends HasCursorState>(rootReducer: LocalS
     }
 
     const cursorAction = objectAssign({}, action, {
-      type: action.type.substr(8)
+      type: action.type.substr(9 + rootReducer.key.length)
     })
     const cursorState = objectAssign({}, state.cursor)
 
     // This is a mutable globalState for action reducers
     const globalState = objectAssign({}, state, { cursor: null })
-    const newCursorState = rootReducer.apply(cursorState as any, cursorAction, globalState)
+    const newCursorState = rootReducer.apply(cursorState[rootReducer.key] || {} as any, cursorAction, globalState)
     return objectAssign({}, globalState, {
-      cursor: newCursorState
+      cursor: objectAssign({}, {
+        [rootReducer.key]: newCursorState
+      })
     })
   }
 }
