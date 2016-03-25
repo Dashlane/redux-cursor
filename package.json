@@ -1,0 +1,32 @@
+{
+  "name": "redux-cursor",
+  "version": "1.0.0",
+  "description": "Recursive modularization for redux reducers and actions",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "prepublish": "tsc --declaration --outDir dist",
+    "test": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Dashlane/redux-cursor.git"
+  },
+  "keywords": [
+    "redux",
+    "cursor"
+  ],
+  "author": "Denis Sokolov <denis@sokolov.cc>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dashlane/redux-cursor/issues"
+  },
+  "homepage": "https://github.com/Dashlane/redux-cursor#readme",
+  "devDependencies": {
+    "typescript": "~1.8.9",
+    "typings": "^0.7.9"
+  },
+  "dependencies": {
+    "object-assign": "^4.0.1"
+  }
+}

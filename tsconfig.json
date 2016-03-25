@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "suppressImplicitAnyIndexErrors": true
+    },
+    "exclude": [
+        "dist",
+        "node_modules",
+        "typings/main",
+        "typings/main.d.ts"
+    ],
+    "compileOnSave": false
+}
