@@ -2,12 +2,12 @@
   "name": "redux-cursor",
   "version": "1.0.0",
   "description": "Recursive modularization for redux reducers and actions",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc --declaration --outDir dist",
     "setup": "typings install",
-    "test": "tsc --noEmit",
+    "test": "npm run build && tsc --noEmit && ava dist/test",
     "start-compiling": "tsc --watch --declaration --outDir dist"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Dashlane/redux-cursor#readme",
   "devDependencies": {
+    "ava": "^0.13.0",
     "typescript": "~1.8.9",
     "typings": "^0.7.9"
   },
