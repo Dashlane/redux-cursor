@@ -6,7 +6,8 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "prepublish": "tsc --declaration --outDir dist",
-    "test": "tsc --noEmit"
+    "test": "tsc --noEmit",
+    "start-compiling": "tsc --watch --declaration --outDir dist"
   },
   "repository": {
     "type": "git",
