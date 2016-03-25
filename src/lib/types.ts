@@ -7,7 +7,7 @@ export interface ActionReducer<State, GlobalState, Param> {
 }
 
 export interface Cursor<State extends Object, GlobalState extends Object> {
-  child: <ChildState>(reducer: LocalStateReducer<ChildState, GlobalState>, instanceKey?: string) => Cursor<ChildState, GlobalState>
+  child: <ChildState>(reducer: LocalReducer<ChildState, GlobalState>, instanceKey?: string) => Cursor<ChildState, GlobalState>
   dispatch: (action: CursorAction<any>) => void
   dispatchGlobal: (action: Action) => void
   state: State,
@@ -28,7 +28,7 @@ export interface HasCursorState {
   cursor: {}
 }
 
-export interface LocalStateReducer<State extends Object, GlobalState extends Object> {
+export interface LocalReducer<State extends Object, GlobalState extends Object> {
   action: <Param>(name: string, f: ActionReducer<State, GlobalState, Param>) => CursorActionCreator<Param>
   apply: (state: { _: State }, action: Action, globalState: GlobalState) => { _: State }
   key: string
@@ -36,5 +36,5 @@ export interface LocalStateReducer<State extends Object, GlobalState extends Obj
 }
 
 export interface RootCursor<GlobalState extends Object> {
-  child: <ChildState>(reducer: LocalStateReducer<ChildState, GlobalState>) => Cursor<ChildState, GlobalState>
+  child: <ChildState>(reducer: LocalReducer<ChildState, GlobalState>) => Cursor<ChildState, GlobalState>
 }

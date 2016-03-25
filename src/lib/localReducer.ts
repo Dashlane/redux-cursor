@@ -1,5 +1,5 @@
 import objectAssign = require('object-assign')
-import { ActionReducer, CursorAction, LocalStateReducer } from './types'
+import { ActionReducer, CursorAction, LocalReducer } from './types'
 
 function splitAction<Param>(action: CursorAction<Param>): [string, CursorAction<Param>] {
   const sepPos = action.type.indexOf('/')
@@ -10,7 +10,7 @@ function splitAction<Param>(action: CursorAction<Param>): [string, CursorAction<
   })]
 }
 
-export default function makeLocalStateReducer<State extends Object, GlobalState extends Object>(key: string, initialState: State, children: LocalStateReducer<Object, GlobalState>[] = []): LocalStateReducer<State, GlobalState> {
+export default function makeLocalReducer<State extends Object, GlobalState extends Object>(key: string, initialState: State, children: LocalReducer<Object, GlobalState>[] = []): LocalReducer<State, GlobalState> {
   if (!key || key.indexOf('/') > -1) {
     throw new Error('Invalid key')
   }

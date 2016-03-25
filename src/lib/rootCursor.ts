@@ -1,15 +1,15 @@
 import objectAssign = require('object-assign')
 import Redux = require('redux')
 import { Action, Cursor, CursorAction,
-  LocalStateReducer } from './types'
+  LocalReducer } from './types'
 
 function encodeInstanceKey(key: string) {
   return key.replace('%', '%P').replace('$', '%D').replace('/', '%S')
 }
 
-function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalStateReducer<S, GlobalState>, currentState: { _?: S } = {}, globalState: GlobalState, dispatch: (action: Action) => void): Cursor<S, GlobalState> {
+function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalReducer<S, GlobalState>, currentState: { _?: S } = {}, globalState: GlobalState, dispatch: (action: Action) => void): Cursor<S, GlobalState> {
   return {
-    child: function <ChildState>(child: LocalStateReducer<ChildState, GlobalState>, instanceKey?: string) {
+    child: function <ChildState>(child: LocalReducer<ChildState, GlobalState>, instanceKey?: string) {
       const suffix = instanceKey ? encodeInstanceKey(instanceKey) + '$' : ''
       return makeCursorInternal(keyPrefix + reducer.key + '/' + suffix, child, currentState[suffix + child.key] || {}, globalState, dispatch)
     },
@@ -30,6 +30,6 @@ function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalSta
   }
 }
 
-export default function makeRootCursor<State extends {}, GlobalState extends { cursor: {} }>(store: Redux.IStore<GlobalState>, rootReducer: LocalStateReducer<State, GlobalState>): Cursor<State, GlobalState> {
+export default function makeRootCursor<State extends {}, GlobalState extends { cursor: {} }>(store: Redux.IStore<GlobalState>, rootReducer: LocalReducer<State, GlobalState>): Cursor<State, GlobalState> {
   return makeCursorInternal('@cursor/', rootReducer, store.getState().cursor[rootReducer.key], store.getState(), store.dispatch)
 }

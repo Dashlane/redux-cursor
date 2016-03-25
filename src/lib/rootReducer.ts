@@ -1,11 +1,11 @@
 import objectAssign = require('object-assign')
-import { Action, CursorAction, HasCursorState, LocalStateReducer } from './types'
+import { Action, CursorAction, HasCursorState, LocalReducer } from './types'
 
 const isCursorAction = function <Param>(action: Action): action is CursorAction<Param> {
   return action.type.match(/^@cursor\//) && 'cursor-action' in action
 }
 
-export default function <GlobalState extends HasCursorState>(rootReducer: LocalStateReducer<{}, GlobalState>) {
+export default function <GlobalState extends HasCursorState>(rootReducer: LocalReducer<{}, GlobalState>) {
   return function(state: GlobalState, action: Action) {
     if (!isCursorAction(action)) {
       return state
