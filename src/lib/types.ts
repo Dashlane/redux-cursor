@@ -10,6 +10,7 @@ export interface Cursor<State extends Object, GlobalState extends Object> {
   child: <ChildState>(reducer: LocalReducer<ChildState, GlobalState>, instanceKey?: string) => Cursor<ChildState, GlobalState>
   dispatch: (action: CursorAction<any>) => void
   dispatchGlobal: (action: Action) => void
+  globalDispatch: (action: Action) => void
   state: State,
   globalState: GlobalState
 }

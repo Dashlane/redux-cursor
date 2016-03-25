@@ -137,7 +137,9 @@ myAppReducer.action('action-name', function(options) {
 
 #### Global state and actions
 
-`props.cursor.globalState` and `props.cursor.dispatchGlobal` are convenience shortcuts to link to the Redux store. There is no logic stored here, those come directly from the Redux store.
+`props.cursor.globalState` and `props.cursor.globalDispatch` are convenience shortcuts to link to the Redux store. There is no logic stored here, those come directly from the Redux store.
+
+`props.cursor.dispatchGlobal` is deprecated.
 
 #### Children
 

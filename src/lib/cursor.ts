@@ -8,6 +8,11 @@ function encodeInstanceKey(key: string) {
 }
 
 function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalReducer<S, GlobalState>, currentState: { _?: S } = {}, globalState: GlobalState, dispatch: (action: Action) => void): Cursor<S, GlobalState> {
+  const globalDispatch = function(action: Action) {
+    if (action['cursor-action'])
+      throw new Error('A cursor action given to global dispatch')
+    dispatch(action)
+  }
   return {
     child: function <ChildState>(child: LocalReducer<ChildState, GlobalState>, instanceKey?: string) {
       const suffix = instanceKey ? encodeInstanceKey(instanceKey) + '$' : ''
@@ -20,11 +25,8 @@ function makeCursorInternal<S, GlobalState>(keyPrefix: string, reducer: LocalRed
         type: keyPrefix + reducer.key + '/' + action.type
       }))
     },
-    dispatchGlobal: function(action: Action) {
-      if (action['cursor-action'])
-        throw new Error('A cursor action given to global dispatch')
-      dispatch(action)
-    },
+    globalDispatch,
+    dispatchGlobal: globalDispatch,
     state: objectAssign({}, reducer.initial, currentState._ || {}),
     globalState
   }
