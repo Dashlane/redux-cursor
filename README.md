@@ -116,15 +116,6 @@ Now `Settings` has its own `cursor` with its own `cursor.state` and a further, n
 
 This is it! Now every component has their own slice of the store with their own private actions and state.
 
-## Action syntax
-
-```js
-myAppReducer.action('action-name', function(options) {
-    // Returned value
-    return diff;
-})
-```
-
 ## API
 
 ### props.cursor
@@ -144,6 +135,60 @@ myAppReducer.action('action-name', function(options) {
 #### Children
 
 `props.cursor.child(childReducer, [childKey])` creates a child `cursor` object based on the `childReducer` and an optional string key. The reducer must be included in the parent’s reducer creation, but if you forget, a console warning will remind you. The key is optional and used to distinguish multiples of the same kind of children in the same parent. Note that if you use the same child in two different component hierarchies, keys is not needed.
+
+### Actions and reducers
+
+The general form of an action is a string name that only needs to be global across all actions of this specific reducer, and then a reducer function:
+
+```js
+myAppReducer.action('action-name', function(options) {
+    return changes;
+})
+```
+
+Reducer functions should return changes to the current private state:
+
+```js
+const myAppReducer = reduxCursor.makeLocalReducer('my-app', {
+    isPopupOpen: false,
+    isDropdownOpen: false
+})
+const userClicked = myAppReducer.action('user-clicked', function(){
+    return { isPopupOpen: true }
+})
+```
+
+The reducer function receives the local reducer state:
+
+```js
+const myAppReducer = reduxCursor.makeLocalReducer('my-app', {
+    clickCount: 0
+})
+const userClicked = myAppReducer.action('user-clicked', function(env){
+    return { clickCount: env.state.clickCount + 1 }
+})
+```
+
+The reducer function also receives the mutable global state to modify the global state. (This is kind of a bad idea, and this API is likely to be changed in the next major version.)
+
+```js
+const myAppReducer = reduxCursor.makeLocalReducer('my-app', {
+    clickCount: 0
+})
+const userClicked = myAppReducer.action('user-clicked', function(env){
+    env.globalState.totalClicks += 1;
+    return { clickCount: env.state.clickCount + 1 }
+})
+```
+
+The reducer function also receives the parameter given to the action creator. Only one parameter is allowed, use an object to pass more:
+
+```js
+const userChangedName = myAppReducer.action('user-changed-name', function(env){
+    return { name: env.param }
+})
+props.dispatch(userChangedName(input.getValue()))
+```
 
 ## Known limitations
 
