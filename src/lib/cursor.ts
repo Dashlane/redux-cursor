@@ -8,7 +8,7 @@ function encodeInstanceKey(key: string) {
 
 function makeCursor<State, GlobalState>(
   keyPrefix: string,
-  reducer: LocalReducer<State, GlobalState>,
+  reducer: LocalReducer<State>,
   currentState: CursorStateStorage<State> = {},
   globalState: GlobalState,
   dispatch: (action: Action) => void
@@ -19,7 +19,7 @@ function makeCursor<State, GlobalState>(
     dispatch(action)
   }
   return {
-    child: function <ChildState>(child: LocalReducer<ChildState, GlobalState>, instanceKey?: string) {
+    child: function <ChildState>(child: LocalReducer<ChildState>, instanceKey?: string) {
       const suffix = instanceKey ? encodeInstanceKey(instanceKey) + '$' : ''
       return makeCursor(keyPrefix + reducer.key + '/' + suffix, child, currentState[suffix + child.key] || {}, globalState, dispatch)
     },
@@ -39,7 +39,7 @@ function makeCursor<State, GlobalState>(
 
 export default function makeRootCursor<State extends {}, GlobalState extends HasCursorState>(
   store: Redux.IStore<GlobalState>,
-  rootReducer: LocalReducer<State, GlobalState>
+  rootReducer: LocalReducer<State>
 ): Cursor<State, GlobalState> {
   return makeCursor(
     '@cursor/',

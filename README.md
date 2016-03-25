@@ -175,18 +175,6 @@ const userClicked = myAppReducer.action('user-clicked', function(env){
 })
 ```
 
-The reducer function also receives the mutable global state to modify the global state. (This is kind of a bad idea, and this API is likely to be changed in the next major version.)
-
-```js
-const myAppReducer = reduxCursor.makeLocalReducer('my-app', {
-    clickCount: 0
-})
-const userClicked = myAppReducer.action('user-clicked', function(env){
-    env.globalState.totalClicks += 1;
-    return { clickCount: env.state.clickCount + 1 }
-})
-```
-
 The reducer function also receives the parameter given to the action creator. Only one parameter is allowed, use an object to pass more:
 
 ```js
@@ -195,7 +183,3 @@ const userChangedName = myAppReducer.action('user-changed-name', function(env){
 })
 props.dispatch(userChangedName(input.getValue()))
 ```
-
-## Known limitations
-
-Currently the globalState is marked as modified with any cursor action, preventing efficient `shouldComponentUpdate` implementations.

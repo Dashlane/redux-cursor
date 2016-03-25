@@ -10,13 +10,13 @@ function splitAction<Param>(action: CursorAction<Param>): [string, CursorAction<
   })]
 }
 
-export default function makeLocalReducer<State extends Object, GlobalState extends Object>(key: string, initialState: State, children: LocalReducer<Object, GlobalState>[] = []): LocalReducer<State, GlobalState> {
+export default function makeLocalReducer<State extends Object>(key: string, initialState: State, children: LocalReducer<Object>[] = []): LocalReducer<State> {
   if (!key || key.indexOf('/') > -1) {
     throw new Error('Invalid key')
   }
-  const actionReducers: { [k: string]: ActionReducer<State, GlobalState, any> } = {}
+  const actionReducers: { [k: string]: ActionReducer<State, any> } = {}
   return {
-    action: function <Param>(name: string, f: ActionReducer<State, GlobalState, Param>) {
+    action: function <Param>(name: string, f: ActionReducer<State, Param>) {
       if (name in actionReducers) {
         throw new Error('Duplicate action name ' + name)
       }
@@ -29,7 +29,7 @@ export default function makeLocalReducer<State extends Object, GlobalState exten
         }
       }
     },
-    apply: function <Param>(storage: CursorStateStorage<State> = { _: initialState }, action: CursorAction<Param>, globalState: GlobalState) {
+    apply: function <Param>(storage: CursorStateStorage<State> = { _: initialState }, action: CursorAction<Param>) {
       const [childKey, finalAction] = splitAction(action)
       if (childKey) {
         const correctChildren = children.filter(c => c.key === childKey || c.key === childKey.split('$')[1])
@@ -38,7 +38,7 @@ export default function makeLocalReducer<State extends Object, GlobalState exten
           return storage
         }
         return objectAssign({}, storage, {
-          [childKey]: correctChildren[0].apply(storage[childKey], finalAction, globalState)
+          [childKey]: correctChildren[0].apply(storage[childKey], finalAction)
         })
       } else {
         // Action on the current reducer
@@ -47,7 +47,6 @@ export default function makeLocalReducer<State extends Object, GlobalState exten
             _: objectAssign({}, storage._,
               actionReducers[finalAction.type]({
                 state: storage._,
-                globalState: globalState,
                 param: finalAction.param
               }))
           })

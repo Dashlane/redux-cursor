@@ -15,4 +15,4 @@ import { Action, Cursor, CursorAction, LocalReducer } from './lib/types'
 export type Action = Action
 export type CursorAction<Param> = CursorAction<Param>
 export interface Cursor<State, GlobalState> extends Cursor<State, GlobalState> {}
-export interface LocalReducer<State, GlobalState> extends LocalReducer<State, GlobalState> {}
+export interface LocalReducer<State> extends LocalReducer<State> {}
