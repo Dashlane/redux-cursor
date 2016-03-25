@@ -1,6 +1,7 @@
 # Redux cursor
 
 [![Build Status](https://travis-ci.org/Dashlane/redux-cursor.svg?branch=master)](https://travis-ci.org/Dashlane/redux-cursor)
+[![Dependency Status](https://gemnasium.com/Dashlane/redux-cursor.svg)](https://gemnasium.com/Dashlane/redux-cursor)
 
 Local private slices of a global store for component encapsulation in a Redux model.
 
