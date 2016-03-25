@@ -4,15 +4,17 @@
 [![Build Status](https://travis-ci.org/Dashlane/redux-cursor.svg?branch=master)](https://travis-ci.org/Dashlane/redux-cursor)
 [![Dependency Status](https://gemnasium.com/Dashlane/redux-cursor.svg)](https://gemnasium.com/Dashlane/redux-cursor)
 
-Local private slices of a global store for component encapsulation in a Redux model.
+Local nested state for Redux components
 
-Redux is great, but the global actions and global state are problematic for big applications. Handling local state at the global level defeats encapsulation and there are discussions on topic both [in Redux](https://github.com/rackt/redux/issues/159) and [in React](https://github.com/facebook/react/issues/4595) projects.
+Redux is great, but the global actions and global state are limited. Handling local state at the global level defeats encapsulation and there are discussions on topic both [in Redux](https://github.com/rackt/redux/issues/159) and [in React](https://github.com/facebook/react/issues/4595) projects.
 
-[Cursors are reasonably popular tools](https://github.com/Yomguithereal/baobab) to solve this issue in general. Redux [does not like cursors as they are](https://github.com/rackt/redux/issues/155), but the criticism is focused purely on the low-level ability to mutate the state at will. `redux-cursor` is based on the actions same as base Redux, only those actions are private by default to the component.
+[Cursors are reasonably popular tools](https://github.com/Yomguithereal/baobab) to solve this issue in general. Redux [does not like the cursors in their general implementation](https://github.com/rackt/redux/issues/155), but the criticism is focused purely on the low-level ability to mutate the state at will. `redux-cursor` resolves that by relying on actions just as base Redux.
 
 Other solutions to this problem: [redux-react-local](https://github.com/threepointone/redux-react-local), [vdux-local](https://github.com/ashaffer/vdux-local), [redux-brick](https://github.com/leeching/redux-brick), [redux-component](https://github.com/tomchentw/redux-component), [redux-state](https://github.com/babotech/redux-state).
 
 ## Usage
+
+In the 3 steps you will be creating a full integration with redux-cursor. In short, we will use private state, make a local reducer, and a local action.
 
 ### 1. Setup private state
 
