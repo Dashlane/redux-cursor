@@ -3,5 +3,5 @@ node_js:
   - "4"
   - "5"
 script:
-  "typings install && npm run test"
+  "npm run setup && npm run test"
 sudo: false

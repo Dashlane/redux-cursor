@@ -6,6 +6,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc --declaration --outDir dist",
+    "setup": "typings install",
     "test": "tsc --noEmit",
     "start-compiling": "tsc --watch --declaration --outDir dist"
   },
