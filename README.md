@@ -16,7 +16,7 @@ For your top-level component `MyApp`, create a private reducer:
 
 ```js
 const reduxCursor = require('redux-cursor')
-const myAppReducer = reduxCursor.makeLocalStateReducer('my-app', {})
+const myAppReducer = reduxCursor.makeLocalReducer('my-app', {})
 module.exports.myAppReducer = myAppReducer
 ```
 
@@ -37,7 +37,7 @@ Great, now Redux knows about your private reducer. Next, let us make it useful. 
 
 ```js
 const reduxCursor = require('redux-cursor')
-const myAppReducer = reduxCursor.makeLocalStateReducer('my-app', {
+const myAppReducer = reduxCursor.makeLocalReducer('my-app', {
     isPopupOpen: false
 })
 module.exports.myAppReducer = myAppReducer
@@ -57,7 +57,7 @@ Now we need to modify this state. In Redux, we only modify the state by dispatch
 
 ```js
 const reduxCursor = require('redux-cursor')
-const myAppReducer = reduxCursor.makeLocalStateReducer('my-app', {
+const myAppReducer = reduxCursor.makeLocalReducer('my-app', {
     isPopupOpen: false
 })
 module.exports.userClicked = myAppReducer.action('user-clicked',
@@ -83,7 +83,7 @@ The final piece of the puzzle is handling component trees. Let us assume that yo
 
 ```js
 const reduxCursor = require('redux-cursor')
-const settingsReducer = reduxCursor.makeLocalStateReducer('settings', {
+const settingsReducer = reduxCursor.makeLocalReducer('settings', {
     sendNewsletter: false
 })
 module.exports.userExpressedNewsletterPreference = myAppReducer.action('newsletter',
@@ -96,7 +96,7 @@ Now you need to connect this reducer to its parent. Modify the parent `appReduce
 ```js
 const reduxCursor = require('redux-cursor')
 const settingsReducer = require('./settings/reducer')
-const myAppReducer = reduxCursor.makeLocalStateReducer('my-app', {
+const myAppReducer = reduxCursor.makeLocalReducer('my-app', {
     isPopupOpen: false
 }, [settingsReducer])
 ```
