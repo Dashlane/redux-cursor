@@ -1,5 +1,7 @@
 # Redux cursor
 
+[![Build Status](https://travis-ci.org/Dashlane/redux-cursor.svg?branch=master)](https://travis-ci.org/Dashlane/redux-cursor)
+
 Local private slices of a global store for component encapsulation in a Redux model.
 
 Redux is great, but the global actions and global state are problematic for big applications. Handling local state at the global level defeats encapsulation and there are discussions on topic both [in Redux](https://github.com/rackt/redux/issues/159) and [in React](https://github.com/facebook/react/issues/4595) projects.
