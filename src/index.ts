@@ -1,12 +1,13 @@
-import localReducer from './localReducer'
-import rootCursor from './rootCursor'
-import rootReducer from './rootReducer'
+import localReducer from './lib/localReducer'
+import rootCursor from './lib/rootCursor'
+import rootReducer from './lib/rootReducer'
 
 export const makeLocalReducer = localReducer
 export const makeRootCursor = rootCursor
 export const makeRootReducer = rootReducer
 
-import { Action, Cursor, CursorAction, LocalStateReducer } from './types'
+import { Action, Cursor, CursorAction, LocalStateReducer } from './lib/types'
+
 export type Action = Action
 export type CursorAction<Param> = CursorAction<Param>
 export interface Cursor<State, GlobalState> extends Cursor<State, GlobalState> {}
