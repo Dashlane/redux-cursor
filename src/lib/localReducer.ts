@@ -29,30 +29,30 @@ export default function makeLocalReducer<State extends Object, GlobalState exten
         }
       }
     },
-    apply: function <Param>(state: CursorStateStorage<State> = { _: initialState }, action: CursorAction<Param>, globalState: GlobalState) {
+    apply: function <Param>(storage: CursorStateStorage<State> = { _: initialState }, action: CursorAction<Param>, globalState: GlobalState) {
       const [childKey, finalAction] = splitAction(action)
       if (childKey) {
         const correctChildren = children.filter(c => c.key === childKey || c.key === childKey.split('$')[1])
         if (correctChildren.length === 0) {
           console.warn('It seems you have forgotten to include a child reducer in a parent. Check the reducer for "' + key + '". The third parameter to makeCursorReducer should be a list of child reducers, including "' + childKey + '".')
-          return state
+          return storage
         }
-        return objectAssign({}, state, {
-          [childKey]: correctChildren[0].apply(state[childKey], finalAction, globalState)
+        return objectAssign({}, storage, {
+          [childKey]: correctChildren[0].apply(storage[childKey], finalAction, globalState)
         })
       } else {
         // Action on the current reducer
         if (finalAction.type in actionReducers) {
-          return objectAssign({}, state, {
-            _: objectAssign({}, state._,
+          return objectAssign({}, storage, {
+            _: objectAssign({}, storage._,
               actionReducers[finalAction.type]({
-                state: state._,
+                state: storage._,
                 globalState: globalState,
                 param: finalAction.param
               }))
           })
         }
-        return state
+        return storage
       }
     },
     key,

@@ -38,7 +38,7 @@ export interface HasCursorState {
 
 export interface LocalReducer<State extends Object, GlobalState extends Object> {
   action: <Param>(name: string, f: ActionReducer<State, GlobalState, Param>) => CursorActionCreator<Param>
-  apply: (state: CursorStateStorage<State>, action: Action, globalState: GlobalState) => CursorStateStorage<State>
+  apply: (storage: CursorStateStorage<State>, action: Action, globalState: GlobalState) => CursorStateStorage<State>
   key: string
   initial: State
 }
