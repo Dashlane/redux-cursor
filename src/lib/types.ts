@@ -21,17 +21,24 @@ export interface CursorAction<Param> {
   'cursor-action': boolean
 }
 
+export interface CursorStateStorage<LocalState extends {}> {
+  _?: LocalState
+  // The following should be typed :CursorStateStorage<{}>,
+  // but this conflicts with the _ property above.
+  [k: string]: any
+}
+
 export interface CursorActionCreator<Param> {
   (param?: Param): CursorAction<Param>
 }
 
 export interface HasCursorState {
-  cursor: { [k: string]: any }
+  cursor: CursorStateStorage<{}>
 }
 
 export interface LocalReducer<State extends Object, GlobalState extends Object> {
   action: <Param>(name: string, f: ActionReducer<State, GlobalState, Param>) => CursorActionCreator<Param>
-  apply: (state: { _: State }, action: Action, globalState: GlobalState) => { _: State }
+  apply: (state: CursorStateStorage<State>, action: Action, globalState: GlobalState) => CursorStateStorage<State>
   key: string
   initial: State
 }
