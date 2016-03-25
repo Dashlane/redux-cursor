@@ -26,6 +26,7 @@
   "homepage": "https://github.com/Dashlane/redux-cursor#readme",
   "devDependencies": {
     "ava": "^0.13.0",
+    "redux": "^3.3.1",
     "typescript": "~1.8.9",
     "typings": "^0.7.9"
   },

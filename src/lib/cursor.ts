@@ -41,11 +41,12 @@ export default function makeRootCursor<State extends {}, GlobalState extends Has
   store: Redux.IStore<GlobalState>,
   rootReducer: LocalReducer<State>
 ): Cursor<State, GlobalState> {
+  const globalState = store.getState()
   return makeCursor(
     '@cursor/',
     rootReducer,
-    store.getState().cursor[rootReducer.key],
-    store.getState(),
+    globalState.cursor ? globalState.cursor[rootReducer.key] : {},
+    globalState,
     store.dispatch
   )
 }

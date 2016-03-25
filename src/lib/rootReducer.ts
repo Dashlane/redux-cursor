@@ -7,6 +7,10 @@ const isCursorAction = function <Param>(action: Action): action is CursorAction<
 
 export default function <GlobalState extends HasCursorState>(rootReducer: LocalReducer<{}>) {
   return function(state: GlobalState, action: Action) {
+    if (!state) {
+      return { cursor: {} }
+    }
+
     if (!isCursorAction(action)) {
       return state
     }
