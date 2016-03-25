@@ -23,3 +23,23 @@ test('private reducer state is given to the cursor', t => {
     const cursor = makeRootCursor(store, appReducer)
     t.same(cursor.state, { foo: 'bar' })
 })
+
+test('private reducer reacts to actions', t => {
+    const appReducer = makeLocalReducer('my-app', { foo: 'bar' })
+    const change = appReducer.action('change', () => ({ foo: 'changed' }))
+    const store = Redux.createStore(makeRootReducer(appReducer))
+    const cursor = makeRootCursor(store, appReducer)
+    cursor.dispatch(change())
+    const updatedCursor = makeRootCursor(store, appReducer)
+    t.same(updatedCursor.state.foo, 'changed')
+})
+
+test('private reducer reacts to actions with parameters', t => {
+    const appReducer = makeLocalReducer('my-app', { foo: 'bar' })
+    const change = appReducer.action('change', ({ param }) => ({ foo: param }))
+    const store = Redux.createStore(makeRootReducer(appReducer))
+    const cursor = makeRootCursor(store, appReducer)
+    cursor.dispatch(change('new'))
+    const updatedCursor = makeRootCursor(store, appReducer)
+    t.same(updatedCursor.state.foo, 'new')
+})
