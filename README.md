@@ -3,6 +3,7 @@
 [![npm](https://img.shields.io/npm/v/redux-cursor.svg)](https://www.npmjs.com/package/redux-cursor)
 [![Build Status](https://travis-ci.org/Dashlane/redux-cursor.svg?branch=master)](https://travis-ci.org/Dashlane/redux-cursor)
 [![Dependency Status](https://gemnasium.com/Dashlane/redux-cursor.svg)](https://gemnasium.com/Dashlane/redux-cursor)
+[![codecov.io](https://codecov.io/github/Dashlane/redux-cursor/coverage.svg?branch=master)](https://codecov.io/github/Dashlane/redux-cursor?branch=master)
 
 Local nested state for Redux components
 
