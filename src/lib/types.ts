@@ -3,7 +3,7 @@ export type Action = { type: string }
 export interface ActionReducer<State, Param> {
   // Return value is deepPartial State, but not yet supported by TypeScript
   // https://github.com/Microsoft/TypeScript/issues/4889
-  (params: { state: State, param: Param }): Object
+  (params: { state: State, global: (type: string, param: any) => void, param: Param }): Object
 }
 
 export interface Cursor<State extends Object, GlobalState extends Object> {
@@ -32,13 +32,17 @@ export interface CursorActionCreator<Param> {
   (param?: Param): CursorAction<Param>
 }
 
+export interface GlobalIntentHandler {
+  (type: string, param: any): void
+}
+
 export interface HasCursorState {
   cursor: CursorStateStorage<{}>
 }
 
 export interface LocalReducer<State extends Object> {
   action: <Param>(name: string, f: ActionReducer<State, Param>) => CursorActionCreator<Param>
-  apply: (storage: CursorStateStorage<State>, action: Action) => CursorStateStorage<State>
+  apply: (storage: CursorStateStorage<State>, action: Action, global: GlobalIntentHandler) => CursorStateStorage<State>
   key: string
   initial: State
 }

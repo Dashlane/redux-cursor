@@ -1,7 +1,7 @@
 # 2.0.0
 
-Breaking change: LocalReducers are now fully independent of global state.
+Breaking change: LocalReducers are now independent of global state.
 
-To upgrade, check your local reducers for access to `globalState`. Move any modifications done to globalState to regular, global action creators and trigger those actions where you trigger original local actions.
+To upgrade, check your local reducers for access to `globalState`. Replace any modifications done to globalState with static global intents, and move the actual modification performing to your global intent handler in the call to makeRootReducer. See ‘Global changes in local action reducers’ in the Readme for more.
 
 I apologize for the inconvenience this change brings. The existence of mutable global state in local reducers was, however, an important architectural problem in Cursor.

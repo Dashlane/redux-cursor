@@ -184,3 +184,32 @@ const userChangedName = myAppReducer.action('user-changed-name', function(env){
 })
 props.dispatch(userChangedName(input.getValue()))
 ```
+
+#### Global changes in local action reducers
+
+Although the general idea of the module is to limit local actions and reducers, performing global actions is often necessary. It could be analytics, or user desktop notifications or other things that you might want to trigger in a local event.
+
+One workaround is to `dispatch` multiple actions in your event handlers. One local and a few global. Redux community seems to use that a fair amount. `redux-cursor` authors, however, consider this to be an anti-pattern. The canon way to perform global changes in local reducers is to trigger global intents:
+
+```js
+const userChangedName = myAppReducer.action('user-changed-name', function(env){
+    env.global('tracking', { code: '1.2.3' })
+    return { name: env.param }
+})
+props.dispatch(userChangedName(input.getValue()))
+```
+
+It is notable that the local reducer does not have access to the global state. This allows to make components with their local reducers reusable in different applications with different global states.
+
+These global intents need to be handled in the root reducer, similar to handling actions:
+
+```js
+const cursorRootReducer = reduxCursor.makeRootReducer(myAppReducer, function(globalState, type, param){
+    if (type === 'tracking') {
+        // modify global state and return a different one
+    }
+    return globalState
+})
+```
+
+It is notable, that they are not separate actions and are fully under the control of the local reducer. This means that an updated hot-reloaded reducer replayed over the same list of real actions may choose to trigger a different set of global intents, resulting in a different global state.

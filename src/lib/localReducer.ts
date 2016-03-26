@@ -1,5 +1,5 @@
 import objectAssign = require('object-assign')
-import { ActionReducer, CursorAction, CursorStateStorage, LocalReducer } from './types'
+import { ActionReducer, CursorAction, CursorStateStorage, GlobalIntentHandler, LocalReducer } from './types'
 
 function splitAction<Param>(action: CursorAction<Param>): [string, CursorAction<Param>] {
   const sepPos = action.type.indexOf('/')
@@ -29,7 +29,7 @@ export default function makeLocalReducer<State extends Object>(key: string, init
         }
       }
     },
-    apply: function <Param>(storage: CursorStateStorage<State> = { _: initialState }, action: CursorAction<Param>) {
+    apply: function <Param>(storage: CursorStateStorage<State> = { _: initialState }, action: CursorAction<Param>, globalIntentHandler: GlobalIntentHandler) {
       const [childKey, finalAction] = splitAction(action)
       if (childKey) {
         const correctChildren = children.filter(c => c.key === childKey || c.key === childKey.split('$')[1])
@@ -38,7 +38,7 @@ export default function makeLocalReducer<State extends Object>(key: string, init
           return storage
         }
         return objectAssign({}, storage, {
-          [childKey]: correctChildren[0].apply(storage[childKey], finalAction)
+          [childKey]: correctChildren[0].apply(storage[childKey], finalAction, globalIntentHandler)
         })
       } else {
         // Action on the current reducer
@@ -47,6 +47,7 @@ export default function makeLocalReducer<State extends Object>(key: string, init
             _: objectAssign({}, storage._,
               actionReducers[finalAction.type]({
                 state: storage._,
+                global: globalIntentHandler,
                 param: finalAction.param
               }))
           })

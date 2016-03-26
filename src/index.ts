@@ -10,9 +10,10 @@ export const makeRootReducer = rootReducer
 // Contrast this with reducers, which have their own local reducer factory.
 export const makeRootCursor = cursor
 
-import { Action, Cursor, CursorAction, LocalReducer } from './lib/types'
+import { Action, Cursor, CursorAction, GlobalIntentHandler, LocalReducer } from './lib/types'
 
 export type Action = Action
 export type CursorAction<Param> = CursorAction<Param>
 export interface Cursor<State, GlobalState> extends Cursor<State, GlobalState> {}
+export interface GlobalIntentHandler extends GlobalIntentHandler {}
 export interface LocalReducer<State> extends LocalReducer<State> {}
