@@ -6,10 +6,11 @@
   "typings": "dist/src/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc --declaration --outDir dist",
-    "setup": "typings install",
-    "test": "npm run build && tsc --noEmit && ava dist/test",
+    "ci": "npm run setup && npm test",
     "coverage": "npm run build && nyc --reporter=lcov ava dist/test",
-    "start-compiling": "tsc --watch --declaration --outDir dist"
+    "setup": "typings install",
+    "start-compiling": "tsc --watch --declaration --outDir dist",
+    "test": "npm run build && tsc --noEmit && ava dist/test"
   },
   "repository": {
     "type": "git",
