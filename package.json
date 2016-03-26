@@ -8,6 +8,7 @@
     "build": "rm -rf dist && tsc --declaration --outDir dist",
     "setup": "typings install",
     "test": "npm run build && tsc --noEmit && ava dist/test",
+    "coverage": "npm run build && nyc --reporter=lcov ava dist/test",
     "start-compiling": "tsc --watch --declaration --outDir dist"
   },
   "repository": {
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/Dashlane/redux-cursor#readme",
   "devDependencies": {
     "ava": "^0.13.0",
+    "nyc": "^6.1.1",
     "redux": "^3.3.1",
     "typescript": "~1.8.9",
     "typings": "^0.7.9"
