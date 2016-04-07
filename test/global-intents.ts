@@ -21,5 +21,5 @@ test('global intents modify the global state', t => {
     const cursor1 = makeRootCursor(store, reducer)
     cursor1.dispatch(action())
     const cursor2 = makeRootCursor(store, reducer)
-    t.same(cursor2.globalState.fooKey, 'bar')
+    t.deepEqual(cursor2.globalState.fooKey, 'bar')
 })

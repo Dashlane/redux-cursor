@@ -8,7 +8,7 @@ test('should dispatch global actions', t => {
     const myAction = { type: 'my-action' }
     const store = Redux.createStore((state, action) => {
         if (action && action.type === myAction.type) {
-            t.same(action, myAction)
+            t.deepEqual(action, myAction)
             t.pass()
         }
         return state
@@ -22,7 +22,7 @@ test('should dispatch global actions using an alias', t => {
     const myAction = { type: 'my-action' }
     const store = Redux.createStore((state, action) => {
         if (action && action.type === myAction.type) {
-            t.same(action, myAction)
+            t.deepEqual(action, myAction)
             t.pass()
         }
         return state
