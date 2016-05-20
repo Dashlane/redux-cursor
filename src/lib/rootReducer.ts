@@ -15,6 +15,10 @@ export default function <GlobalState extends HasCursorState>(rootReducer: LocalR
       return state
     }
 
+    if (action.type.substr(8, rootReducer.key.length + 1) !== rootReducer.key + '/') {
+        throw new Error('Action and store have different reducer trees. Action dispatched from root reducer "' + action.type + '", while the store has root reducer "' + rootReducer.key + '"')
+    }
+
     const cursorAction = objectAssign({}, action, {
       type: action.type.substr(9 + rootReducer.key.length)
     })
