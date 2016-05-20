@@ -25,7 +25,7 @@ export default function makeLocalReducer<State extends Object>(key: string, init
         return {
           type: name,
           param: param,
-          'cursor-action': true
+          'cursor-action': { 'reducer-key': key }
         }
       }
     },

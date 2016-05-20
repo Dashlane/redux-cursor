@@ -29,3 +29,13 @@ test('should complain if an action from another reducer tree is given', t => {
         cursor.dispatch(action())
     })
 })
+
+test('should complain if a non-existing action is dispatched', t => {
+    const reducer1 = makeLocalReducer('reducer1', {})
+    const reducer2 = makeLocalReducer('reducer2', {})
+    const action = reducer1.action('action', () => ({}))
+    const cursor = makeRootCursor(Redux.createStore(makeRootReducer(reducer2)), reducer2)
+    t.throws(() => {
+        cursor.dispatch(action())
+    })
+})

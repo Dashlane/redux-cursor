@@ -26,6 +26,8 @@ function makeCursor<State, GlobalState>(
     dispatch: function(action: CursorAction<any>) {
       if (!action['cursor-action'])
         throw new Error('A regular action given to cursor dispatch')
+      if (action['cursor-action']['reducer-key'] !== reducer.key)
+        throw new Error('Action ' + action.type + ' came from reducer ' + action['cursor-action']['reducer-key'] + ' instead of expected ' + reducer.key)
       dispatch(objectAssign({}, action, {
         type: keyPrefix + reducer.key + '/' + action.type
       }))

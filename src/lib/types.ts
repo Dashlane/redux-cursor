@@ -18,7 +18,9 @@ export interface Cursor<State extends Object, GlobalState extends Object> {
 export interface CursorAction<Param> {
   type: string
   param?: Param
-  'cursor-action': boolean
+  'cursor-action': {
+    'reducer-key': string
+  }
 }
 
 export interface CursorStateStorage<LocalState extends {}> {
