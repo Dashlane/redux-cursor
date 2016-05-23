@@ -1,6 +1,6 @@
 {
   "name": "redux-cursor",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Recursive modularization for redux reducers and actions",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
