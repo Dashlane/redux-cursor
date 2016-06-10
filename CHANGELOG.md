@@ -1,3 +1,7 @@
+# 3.0.0
+
+License change to Apache 2.
+
 # 2.0.0
 
 Breaking change: LocalReducers are now independent of global state.
