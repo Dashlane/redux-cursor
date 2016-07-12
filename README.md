@@ -141,7 +141,7 @@ This is it! Now every component has their own slice of the store with their own 
 
 #### Children
 
-`props.cursor.child(childReducer, [childKey])` creates a child `cursor` object based on the `childReducer` and an optional string key. The reducer must be included in the parent’s reducer creation, but if you forget, a console warning will remind you. The key is optional and used to distinguish multiples of the same kind of children in the same parent. Note that if you use the same child in two different component hierarchies, key parameters are not needed.
+`props.cursor.child(childReducer, [childKey])` creates a child `cursor` object based on the `childReducer` and an optional string key. The reducer must be included in the parent’s reducer creation, but if you forget, a console warning will remind you. The key is optional and used to distinguish multiples of the same kind of children in the same parent. Note that if you use the same child in two different places in the component hierarchy, key parameters are not needed.
 
 ### Actions and reducers
 
