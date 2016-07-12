@@ -145,7 +145,7 @@ This is it! Now every component has their own slice of the store with their own 
 
 ### Actions and reducers
 
-The general form of an action is a string name that only needs to be global across all actions of this specific reducer, and then a reducer function:
+The general form of an action is a string name that only needs to be unique across all actions of this specific reducer, and then a reducer function:
 
 ```js
 myAppReducer.action('action-name', function(options) {
