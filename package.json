@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Dashlane/redux-cursor#readme",
   "devDependencies": {
-    "ava": "^0.15.2",
+    "ava": "^0.16.0",
     "codecov": "^1.0.1",
     "nyc": "^6.1.1",
     "redux": "^3.3.1",
