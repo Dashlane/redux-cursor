@@ -21,7 +21,7 @@ export default function makeLocalReducer<State extends Object>(key: string, init
         throw new Error('Duplicate action name ' + name)
       }
       actionReducers[name] = f
-      return function(param?: Param): CursorAction<Param> {
+      return function(param: Param): CursorAction<Param> {
         return {
           type: name,
           param: param,
@@ -46,7 +46,7 @@ export default function makeLocalReducer<State extends Object>(key: string, init
           return objectAssign({}, storage, {
             _: objectAssign({}, storage._,
               actionReducers[finalAction.type]({
-                state: storage._,
+                state: storage._!,
                 global: globalIntentHandler,
                 param: finalAction.param
               }))

@@ -12,7 +12,7 @@ test('rootReducer makes a reducer', t => {
     const reducer = makeRootReducer(makeLocalReducer('my-app', {}))
     t.deepEqual(typeof reducer, 'function')
     const dummyAction = { type: 'unknown-action' }
-    const initialState = reducer(undefined, dummyAction)
+    const initialState = reducer(undefined!, dummyAction)
     const state = objectAssign({}, initialState, { foo: 'bar' })
     t.deepEqual(reducer(state, dummyAction), state)
 })

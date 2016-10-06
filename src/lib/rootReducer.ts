@@ -2,10 +2,11 @@ import objectAssign = require('object-assign')
 import { Action, CursorAction, HasCursorState, LocalReducer } from './types'
 
 const isCursorAction = function <Param>(action: Action): action is CursorAction<Param> {
-  return action.type.match(/^@cursor\//) && 'cursor-action' in action
+  return Boolean(action.type.match(/^@cursor\//) && 'cursor-action' in action)
 }
 
 export default function <GlobalState extends HasCursorState>(rootReducer: LocalReducer<{}>, intentHandler?: (state: GlobalState, type: string, param: any) => GlobalState) {
+  // state can be undefined, but redux.IReducer is not updated yet
   return function(state: GlobalState, action: Action): GlobalState {
     if (!state) {
       return { cursor: {} } as GlobalState
@@ -26,11 +27,11 @@ export default function <GlobalState extends HasCursorState>(rootReducer: LocalR
 
     type Intent = { type: string, param: any }
     const intents: Intent[] = []
-    intentHandler = intentHandler || (s => s)
+    const realIntentHandler = intentHandler || (s => s)
     const newCursorState = rootReducer.apply(cursorState[rootReducer.key] || {}, cursorAction,
       (type: string, param: any) => { intents.push({ type, param })})
     const stateWithIntentsHandled = intents.reduce(
-      (state, intent) => intentHandler(state, intent.type, intent.param),
+      (state, intent) => realIntentHandler(state, intent.type, intent.param),
       state)
     return objectAssign({}, stateWithIntentsHandled, {
       cursor: objectAssign({}, {

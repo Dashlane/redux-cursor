@@ -3,7 +3,8 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "target": "es5",
-        "noImplicitReturns": true
+        "noImplicitReturns": true,
+        "strictNullChecks": true
     },
     "exclude": [
         "dist",
