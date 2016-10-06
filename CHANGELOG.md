@@ -1,3 +1,7 @@
+# 4.0.0
+
+TypeScript 2 and strict null checks
+
 # 3.0.0
 
 License change to Apache 2.
