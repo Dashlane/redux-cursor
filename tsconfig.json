@@ -5,6 +5,8 @@
         "target": "es5",
         "noImplicitReturns": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "strictNullChecks": true
     },
     "exclude": [
