@@ -40,7 +40,7 @@ function makeCursor<State, GlobalState>(
 }
 
 export default function makeRootCursor<State extends {}, GlobalState extends HasCursorState>(
-  store: Redux.IStore<GlobalState>,
+  store: Redux.Store<GlobalState>,
   rootReducer: LocalReducer<State>
 ): Cursor<State, GlobalState> {
   const globalState = store.getState()
