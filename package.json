@@ -32,7 +32,7 @@
     "nyc": "^8.1.0",
     "redux": "^3.3.1",
     "typescript": "~2.2.1",
-    "typings": "^1.0.3"
+    "typings": "^2.1.0"
   },
   "dependencies": {
     "object-assign": "^4.0.1"
