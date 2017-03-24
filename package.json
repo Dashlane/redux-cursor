@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/Dashlane/redux-cursor#readme",
   "devDependencies": {
+    "@types/es6-promise": "0.0.32",
+    "@types/object-assign": "^4.0.30",
     "ava": "^0.16.0",
     "codecov": "^1.0.1",
     "nyc": "^8.1.0",
