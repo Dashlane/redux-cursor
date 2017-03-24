@@ -10,7 +10,8 @@
     "coverage": "npm run build && nyc --reporter=lcov ava dist/test",
     "setup": "typings install",
     "start-compiling": "tsc --watch --declaration --outDir dist",
-    "test": "npm run build && tsc --noEmit && ava -v dist/test"
+    "test": "npm run build && npm run tsc && ava -v dist/test",
+    "tsc": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
