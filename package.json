@@ -6,9 +6,8 @@
   "typings": "dist/src/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc --declaration --outDir dist",
-    "ci": "npm run setup && npm run coverage && codecov",
+    "ci": "npm run coverage && codecov",
     "coverage": "npm run build && nyc --reporter=lcov ava dist/test",
-    "setup": "typings install",
     "start-compiling": "tsc --watch --declaration --outDir dist",
     "test": "npm run build && npm run tsc && ava -v dist/test",
     "tsc": "tsc --noEmit"
@@ -34,8 +33,7 @@
     "codecov": "^1.0.1",
     "nyc": "^8.1.0",
     "redux": "^3.6.0",
-    "typescript": "~2.2.1",
-    "typings": "^2.1.0"
+    "typescript": "~2.2.1"
   },
   "dependencies": {
     "object-assign": "^4.0.1"
